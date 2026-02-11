@@ -3,57 +3,323 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tu Guía Digital</title>
+  <meta name="description" content="Tu Guía Digital - Directorio laboral que conecta talento con oportunidad. Encuentra empleo o publica vacantes de manera confiable y eficiente.">
+  <meta name="keywords" content="empleo, trabajo, vacantes, reclutamiento, directorio laboral, búsqueda de empleo">
+  <title>Tu Guía Digital | Conectando Talento con Oportunidad</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
+  <!-- Header/Navbar -->
   <header class="header">
-    <h1>Tu Guía Digital</h1>
-    <nav>
-      <ul>
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Quiénes Somos</a></li>
-        <li><a href="#">Servicios</a></li>
-        <li><a href="#">Contacto</a></li>
-      </ul>
-    </nav>
+    <div class="container">
+      <div class="logo">
+        <a href="#">
+          <i class="fas fa-compass"></i>
+          <span>Tu Guía Digital</span>
+        </a>
+      </div>
+      
+      <!-- Menú de navegación -->
+      <nav class="navbar">
+        <ul class="nav-menu">
+          <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+          <li><a href="#quienes-somos" class="nav-link">Quiénes Somos</a></li>
+          <li><a href="#servicios" class="nav-link">Servicios</a></li>
+          <li><a href="#testimonios" class="nav-link">Testimonios</a></li>
+          <li><a href="#contacto" class="nav-link">Contacto</a></li>
+        </ul>
+        
+        <!-- Botones de acción -->
+        <div class="nav-actions">
+          <a href="auth.html" class="btn btn-login">
+            <i class="fas fa-user"></i> Iniciar Sesión
+          </a>
+          <a href="auth.html" class="btn btn-primary btn-register">
+            <i class="fas fa-user-plus"></i> Registrarse
+          </a>
+        </div>
+        
+        <!-- Menú hamburguesa para móvil -->
+        <button class="hamburger" id="hamburger" aria-label="Menú de navegación">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+    </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-content">
-      <h2>Conectamos talento con oportunidad</h2>
-      <p>Tu Guía Digital es el directorio laboral donde empresas y buscadores de empleo se encuentran en un solo lugar confiable, moderno y accesible.</p>
-      <a href="#" class="btn">Explorar oportunidades</a>
+  <!-- Hero Section -->
+  <section class="hero" id="inicio">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1 class="hero-title">Conectamos <span class="highlight">talento</span> con <span class="highlight">oportunidad</span></h1>
+          <p class="hero-description">
+            Tu Guía Digital es el directorio laboral donde empresas y buscadores de empleo se encuentran en un solo lugar confiable, moderno y accesible.
+          </p>
+         <div class="hero-actions">
+  <a href="empresa.html" class="btn btn-primary btn-large">
+    <i class="fas fa-search"></i> Explorar Empresas
+  </a>
+  <a href="vacante.html" class="btn btn-secondary btn-large">
+    <i class="fas fa-building"></i> Publicar Vacante
+  </a>
+</div>
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-number">1,250+</span>
+              <span class="stat-label">Vacantes Activas</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">500+</span>
+              <span class="stat-label">Empresas Registradas</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">3,800+</span>
+              <span class="stat-label">Candidatos Encontrados</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="https://images.unsplash.com/photo-1551836026-d5c2c5af78e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Personas trabajando en equipo" loading="lazy">
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="about">
-    <h2>Nuestra misión</h2>
-    <p>
-      Brindar una plataforma confiable y eficiente que unifique ofertas laborales y servicios de empleo, ayudando a las personas a encontrar oportunidades reales y a las empresas a reclutar con facilidad.
-    </p>
-  </section>
-
-  <section class="services">
-    <h2>Lo que ofrecemos</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>Directorio Laboral</h3>
-        <p>Encuentra vacantes actualizadas filtradas por ubicación, sector y tipo de cargo.</p>
+  <!-- About Section -->
+  <section class="about section-padding" id="quienes-somos">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Nuestra <span class="highlight">Misión</span></h2>
+        <p class="section-subtitle">Transformando la búsqueda laboral</p>
       </div>
-      <div class="card">
-        <h3>Registro Empresarial</h3>
-        <p>Las empresas pueden publicar vacantes y mejorar su visibilidad digital.</p>
-      </div>
-      <div class="card">
-        <h3>Conexión Segura</h3>
-        <p>Garantizamos una comunicación transparente entre empleadores y candidatos.</p>
+      <div class="about-content">
+        <div class="about-text">
+          <p>
+            Brindamos una plataforma confiable y eficiente que unifica ofertas laborales y servicios de empleo, ayudando a las personas a encontrar oportunidades reales y a las empresas a reclutar con facilidad.
+          </p>
+          <div class="about-features">
+            <div class="feature">
+              <i class="fas fa-check-circle"></i>
+              <span>Plataforma 100% verificada</span>
+            </div>
+            <div class="feature">
+              <i class="fas fa-shield-alt"></i>
+              <span>Protección de datos garantizada</span>
+            </div>
+            <div class="feature">
+              <i class="fas fa-bolt"></i>
+              <span>Proceso ágil y eficiente</span>
+            </div>
+          </div>
+        </div>
+        <div class="about-image">
+          <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Equipo de trabajo colaborando" loading="lazy">
+        </div>
       </div>
     </div>
   </section>
- 
-  <footer>
-    <p>© 2025 Tu Guía Digital — Transformamos la búsqueda laboral en una experiencia simple y confiable.</p>
+
+  <!-- Services Section -->
+  <section class="services section-padding" id="servicios">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Lo que <span class="highlight">Ofrecemos</span></h2>
+        <p class="section-subtitle">Servicios diseñados para optimizar tu búsqueda laboral</p>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-search"></i>
+          </div>
+          <h3 class="card-title">Directorio Laboral Inteligente</h3>
+          <p class="card-description">
+            Encuentra vacantes actualizadas filtradas por ubicación, sector y tipo de cargo con nuestro sistema de búsqueda inteligente.
+          </p>
+          <a href="#" class="card-link">Explorar vacantes <i class="fas fa-arrow-right"></i></a>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-building"></i>
+          </div>
+          <h3 class="card-title">Portal Empresarial</h3>
+          <p class="card-description">
+            Las empresas pueden publicar vacantes, gestionar candidatos y mejorar su visibilidad digital con herramientas avanzadas.
+          </p>
+          <a href="#" class="card-link">Publicar vacante <i class="fas fa-arrow-right"></i></a>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <h3 class="card-title">Conexión Segura y Directa</h3>
+          <p class="card-description">
+            Garantizamos comunicación transparente y protegida entre empleadores y candidatos con verificación de identidad.
+          </p>
+          <a href="#" class="card-link">Conocer más <i class="fas fa-arrow-right"></i></a>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3 class="card-title">Seguimiento de Proceso</h3>
+          <p class="card-description">
+            Dashboard personalizado para seguir tus postulaciones y estadísticas de tu búsqueda laboral en tiempo real.
+          </p>
+          <a href="#" class="card-link">Ver demo <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials section-padding" id="testimonios">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Historias de <span class="highlight">Éxito</span></h2>
+        <p class="section-subtitle">Lo que dicen nuestros usuarios</p>
+      </div>
+      <div class="testimonial-cards">
+        <div class testimonial-card">
+          <div class="testimonial-content">
+            <p>"Encontré mi trabajo ideal en solo dos semanas. La plataforma es intuitiva y las empresas responden rápido."</p>
+          </div>
+          <div class="testimonial-author">
+            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Ana Rodríguez">
+            <div>
+              <h4>Ana Rodríguez</h4>
+              <p>Diseñadora UX en TechSolutions</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p>"Como reclutador, he optimizado mi tiempo y encontrado candidatos altamente calificados de manera eficiente."</p>
+          </div>
+          <div class="testimonial-author">
+            <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Carlos Méndez">
+            <div>
+              <h4>Carlos Méndez</h4>
+              <p>HR Manager en InnovateCorp</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p>"La transición de estudiante a profesional fue suave gracias a las oportunidades para recién graduados."</p>
+          </div>
+          <div class="testimonial-author">
+            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Laura Gómez">
+            <div>
+              <h4>Laura Gómez</h4>
+              <p>Desarrolladora Junior en StartUpLab</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta section-padding">
+    <div class="container">
+      <div class="cta-content">
+        <h2 class="cta-title">¿Listo para tu próximo paso profesional?</h2>
+        <p class="cta-description">
+          Únete a miles de profesionales y empresas que ya están transformando su futuro laboral.
+        </p>
+        <div class="cta-actions">
+          <a href="#" class="btn btn-primary btn-large">
+            <i class="fas fa-user-plus"></i> Crear Cuenta Gratis
+          </a>
+          <a href="#" class="btn btn-light btn-large">
+            <i class="fas fa-play-circle"></i> Ver Video Tutorial
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" id="contacto">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <div class="logo">
+            <a href="#">
+              <i class="fas fa-compass"></i>
+              <span>Tu Guía Digital</span>
+            </a>
+          </div>
+          <p class="footer-description">
+            Transformamos la búsqueda laboral en una experiencia simple, confiable y efectiva.
+          </p>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Enlaces Rápidos</h4>
+          <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#quienes-somos">Quiénes Somos</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#testimonios">Testimonios</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Servicios</h4>
+          <ul>
+            <li><a href="#">Búsqueda de Empleo</a></li>
+            <li><a href="#">Publicar Vacantes</a></li>
+            <li><a href="#">Currículum Profesional</a></li>
+            <li><a href="#">Asesoría Laboral</a></li>
+            <li><a href="#">Recursos Gratuitos</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Contacto</h4>
+          <ul class="contact-info">
+            <li><i class="fas fa-envelope"></i> jhonflover54@gmail.com</li>
+            <li><i class="fas fa-phone"></i> +1 (+57) 3022741408</li>
+            <li><i class="fas fa-map-marker-alt"></i> Av. Principal 123, Ciudad</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2026 Tu Guía Digital. Todos los derechos reservados.</p>
+        <div class="footer-links">
+          <a href="#">Política de Privacidad</a>
+          <a href="#">Términos de Servicio</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+    </div>
   </footer>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" id="backToTop" aria-label="Volver arriba">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="script.js"></script>
 </body>
 </html>
