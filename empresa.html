@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JOQU Comunicaciones | Desarrollo Web & Marketing Digital</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #10b981;
+      --accent: #8b5cf6;
+      --text: #1f2937;
+      --light: #f8fafc;
+      --dark: #1e293b;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      --radius: 12px;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    .empresa-container {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 1200px;
+      overflow: hidden;
+    }
+    
+    .empresa-header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      color: white;
+      padding: 60px 40px 40px;
+      position: relative;
+    }
+    
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 8px 16px;
+      border-radius: 20px;
+      transition: all 0.3s;
+    }
+    
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    
+    .empresa-info {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    
+    .logo-container {
+      width: 150px;
+      height: 150px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+    
+    .logo-container i {
+      font-size: 4rem;
+      color: var(--primary);
+    }
+    
+    .empresa-details h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+    }
+    
+    .empresa-details .tagline {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+    
+    .empresa-stats {
+      display: flex;
+      gap: 30px;
+      margin-top: 20px;
+    }
+    
+    .stat {
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      display: block;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    
+    .empresa-content {
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 40px;
+    }
+    
+    .section {
+      margin-bottom: 40px;
+    }
+    
+    .section h2 {
+      color: var(--primary);
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid var(--secondary);
+      display: inline-block;
+    }
+    
+    .servicios-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    .servicio-card {
+      background: var(--light);
+      padding: 25px;
+      border-radius: var(--radius);
+      border-left: 5px solid var(--primary);
+      transition: all 0.3s;
+    }
+    
+    .servicio-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+    
+    .servicio-card i {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+    
+    .servicio-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+    
+    .proyectos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    
+    .proyecto-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: all 0.3s;
+    }
+    
+    .proyecto-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .proyecto-img {
+      height: 200px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3rem;
+    }
+    
+    .proyecto-info {
+      padding: 20px;
+      background: white;
+    }
+    
+    .sidebar {
+      background: var(--light);
+      padding: 30px;
+      border-radius: var(--radius);
+    }
+    
+    .contacto-info {
+      margin-bottom: 30px;
+    }
+    
+    .contacto-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+      padding: 12px;
+      background: white;
+      border-radius: var(--radius);
+    }
+    
+    .contacto-item i {
+      color: var(--primary);
+      font-size: 1.2rem;
+      width: 30px;
+    }
+    
+    .btn-contacto {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: var(--primary);
+      color: white;
+      padding: 15px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 20px;
+      transition: all 0.3s;
+    }
+    
+    .btn-contacto:hover {
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+    }
+    
+    .vacantes-activas {
+      margin-top: 30px;
+    }
+    
+    .vacante-card {
+      background: white;
+      padding: 20px;
+      border-radius: var(--radius);
+      margin-bottom: 15px;
+      border-left: 4px solid var(--secondary);
+    }
+    
+    .vacante-card h4 {
+      margin-bottom: 8px;
+    }
+    
+    .etiquetas {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .etiqueta {
+      background: var(--light);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+    
+    @media (max-width: 992px) {
+      .empresa-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .empresa-info {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      
+      .logo-container {
+        margin: 0 auto;
+      }
+      
+      .empresa-stats {
+        justify-content: center;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .empresa-header {
+        padding: 40px 20px 30px;
+      }
+      
+      .empresa-content {
+        padding: 20px;
+      }
+      
+      .empresa-details h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="empresa-container">
+    <!-- Header de la Empresa -->
+    <div class="empresa-header">
+      <a href="index.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Volver al Directorio
+      </a>
+      
+      <div class="empresa-info">
+        <div class="logo-container">
+          <i class="fas fa-broadcast-tower"></i>
+        </div>
+        
+        <div class="empresa-details">
+          <h1>JOQU Comunicaciones</h1>
+          <p class="tagline">Transformamos ideas en experiencias digitales extraordinarias</p>
+          
+          <div class="etiquetas">
+            <span class="etiqueta" style="background: #dcfce7; color: #166534;">⭐ Empresa Verificada</span>
+            <span class="etiqueta" style="background: #fef3c7; color: #92400e;">🏆 Excelencia en Servicio</span>
+            <span class="etiqueta" style="background: #dbeafe; color: #1e40af;">🚀 Innovación Digital</span>
+          </div>
+          
+          <div class="empresa-stats">
+            <div class="stat">
+              <span class="stat-number">8+</span>
+              <span class="stat-label">Años de Experiencia</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">150+</span>
+              <span class="stat-label">Proyectos Completados</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">98%</span>
+              <span class="stat-label">Clientes Satisfechos</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Contenido Principal -->
+    <div class="empresa-content">
+      <!-- Columna Principal -->
+      <div class="main-column">
+        <!-- Sobre Nosotros -->
+        <div class="section">
+          <h2>Sobre Nosotros</h2>
+          <p>En JOQU Comunicaciones somos un equipo apasionado de profesionales digitales especializados en crear soluciones integrales que impulsan el crecimiento de tu negocio. Combinamos creatividad, tecnología y estrategia para desarrollar proyectos que no solo se ven increíbles, sino que generan resultados tangibles.</p>
+          
+          <p>Nuestra filosofía se basa en la innovación constante, la atención al detalle y la construcción de relaciones duraderas con nuestros clientes. Creemos que cada proyecto es una oportunidad para superar expectativas y establecer nuevos estándares de excelencia en el mundo digital.</p>
+        </div>
+        
+        <!-- Nuestros Servicios -->
+        <div class="section">
+          <h2>Nuestros Servicios</h2>
+          <div class="servicios-grid">
+            <div class="servicio-card">
+              <i class="fas fa-code"></i>
+              <h3>Desarrollo Web</h3>
+              <p>Sitios web responsivos, tiendas online, aplicaciones web personalizadas con las últimas tecnologías.</p>
+            </div>
+            
+            <div class="servicio-card">
+              <i class="fas fa-chart-line"></i>
+              <h3>Marketing Digital & SEO</h3>
+              <p>Posicionamiento en buscadores, estrategias de contenido, análisis de competencia y métricas.</p>
+            </div>
+            
+            <div class="servicio-card">
+              <i class="fas fa-video"></i>
+              <h3>Producción de Video</h3>
+              <p>Videos corporativos, animaciones, contenido para redes sociales y campañas publicitarias.</p>
+            </div>
+            
+            <div class="servicio-card">
+              <i class="fas fa-paint-brush"></i>
+              <h3>Diseño Gráfico</h3>
+              <p>Identidad visual, branding, material publicitario y diseño de interfaces intuitivas.</p>
+            </div>
+            
+            <div class="servicio-card">
+              <i class="fas fa-mobile-alt"></i>
+              <h3>Social Media Management</h3>
+              <p>Gestión de redes sociales, community management y estrategias de engagement.</p>
+            </div>
+            
+            <div class="servicio-card">
+              <i class="fas fa-shopping-cart"></i>
+              <h3>E-commerce Solutions</h3>
+              <p>Plataformas de venta online, integración de pagos y optimización de conversiones.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Proyectos Destacados -->
+        <div class="section">
+          <h2>Proyectos Destacados</h2>
+          <div class="proyectos">
+            <div class="proyecto-card">
+              <div class="proyecto-img">
+                <i class="fas fa-store"></i>
+              </div>
+              <div class="proyecto-info">
+                <h3>E-commerce Fashion</h3>
+                <p>Plataforma de venta online con +300% aumento en conversiones en 6 meses.</p>
+                <div class="etiquetas">
+                  <span class="etiqueta">WordPress</span>
+                  <span class="etiqueta">WooCommerce</span>
+                  <span class="etiqueta">SEO</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="proyecto-card">
+              <div class="proyecto-img">
+                <i class="fas fa-building"></i>
+              </div>
+              <div class="proyecto-info">
+                <h3>Portal Corporativo</h3>
+                <p>Sitio web institucional con sistema de gestión de contenido personalizado.</p>
+                <div class="etiquetas">
+                  <span class="etiqueta">React</span>
+                  <span class="etiqueta">Node.js</span>
+                  <span class="etiqueta">MongoDB</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Información de Contacto -->
+        <div class="contacto-info">
+          <h3>Contacto</h3>
+          <div class="contacto-item">
+            <i class="fas fa-envelope"></i>
+            <div>
+              <strong>Email</strong>
+              <p>contacto@joqucomunicaciones.com</p>
+            </div>
+          </div>
+          
+          <div class="contacto-item">
+            <i class="fas fa-phone"></i>
+            <div>
+              <strong>Teléfono</strong>
+              <p>+1 (555) 123-4567</p>
+            </div>
+          </div>
+          
+          <div class="contacto-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <strong>Ubicación</strong>
+              <p>Av. Digital 123, Ciudad Innovación</p>
+            </div>
+          </div>
+          
+          <div class="contacto-item">
+            <i class="fas fa-clock"></i>
+            <div>
+              <strong>Horario</strong>
+              <p>Lun-Vie: 9:00 AM - 6:00 PM</p>
+            </div>
+          </div>
+          
+          <a href="mailto:contacto@joqucomunicaciones.com" class="btn-contacto">
+            <i class="fas fa-paper-plane"></i> Contactar Ahora
+          </a>
+        </div>
+        
+        <!-- Vacantes Activas -->
+        <div class="vacantes-activas">
+          <h3>Vacantes Activas</h3>
+          
+          <div class="vacante-card">
+            <h4>Desarrollador Frontend</h4>
+            <p><i class="fas fa-briefcase"></i> Tiempo completo</p>
+            <p><i class="fas fa-map-marker-alt"></i> Remoto</p>
+            <div class="etiquetas">
+              <span class="etiqueta">JavaScript</span>
+              <span class="etiqueta">React</span>
+              <span class="etiqueta">CSS3</span>
+            </div>
+          </div>
+          
+          <div class="vacante-card">
+            <h4>Especialista SEO</h4>
+            <p><i class="fas fa-briefcase"></i> Medio tiempo</p>
+            <p><i class="fas fa-map-marker-alt"></i> Híbrido</p>
+            <div class="etiquetas">
+              <span class="etiqueta">SEO</span>
+              <span class="etiqueta">Analytics</span>
+              <span class="etiqueta">Contenido</span>
+            </div>
+          </div>
+          
+          <div class="vacante-card">
+            <h4>Editor de Video</h4>
+            <p><i class="fas fa-briefcase"></i> Freelance</p>
+            <p><i class="fas fa-map-marker-alt"></i> Remoto</p>
+            <div class="etiquetas">
+              <span class="etiqueta">Premiere Pro</span>
+              <span class="etiqueta">After Effects</span>
+              <span class="etiqueta">Motion Graphics</span>
+            </div>
+          </div>
+          
+          <a href="#aplicar" class="btn-contacto" style="background: var(--secondary);">
+            <i class="fas fa-user-plus"></i> Ver Todas las Vacantes
+          </a>
+        </div>
+        
+        <!-- Redes Sociales -->
+        <div style="margin-top: 30px;">
+          <h3>Síguenos</h3>
+          <div style="display: flex; gap: 15px; margin-top: 15px;">
+            <a href="#" style="color: var(--primary); font-size: 1.5rem;"><i class="fab fa-facebook"></i></a>
+            <a href="#" style="color: var(--primary); font-size: 1.5rem;"><i class="fab fa-twitter"></i></a>
+            <a href="#" style="color: var(--primary); font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
+            <a href="#" style="color: var(--primary); font-size: 1.5rem;"><i class="fab fa-linkedin"></i></a>
+            <a href="#" style="color: var(--primary); font-size: 1.5rem;"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
