@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vacantes | Tu Guía Digital</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f3f4f6;
+            color: #1f2937;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        .logo i {
+            margin-right: 8px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-name {
+            font-weight: 500;
+        }
+
+        .btn-logout {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-logout:hover {
+            background: #dc2626;
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+        }
+
+        /* Panel de perfil (hoja de vida) */
+        .profile-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            height: fit-content;
+            position: sticky;
+            top: 90px;
+        }
+
+        .profile-panel h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #2563eb;
+            border-left: 4px solid #2563eb;
+            padding-left: 12px;
+        }
+
+        .profile-panel .avatar {
+            width: 80px;
+            height: 80px;
+            background: #e0e7ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #2563eb;
+            margin: 0 auto 1rem;
+        }
+
+        .profile-field {
+            margin-bottom: 1rem;
+        }
+
+        .profile-field label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 5px;
+            color: #4b5563;
+        }
+
+        .profile-field input, .profile-field textarea, .profile-field select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .profile-field textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .btn-save-profile {
+            background: #10b981;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-save-profile:hover {
+            background: #059669;
+        }
+
+        /* Lista de vacantes */
+        .vacantes-section {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .vacantes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input {
+            padding: 10px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            width: 250px;
+        }
+
+        .search-box button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .vacantes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .vacante-card {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 1.2rem;
+            transition: all 0.3s;
+            border: 1px solid #e5e7eb;
+        }
+
+        .vacante-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .vacante-titulo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .vacante-empresa {
+            color: #2563eb;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .vacante-detalles {
+            display: flex;
+            gap: 15px;
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-bottom: 12px;
+        }
+
+        .vacante-descripcion {
+            font-size: 0.85rem;
+            color: #4b5563;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .btn-postular {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        .btn-postular:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-postular.postulado {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        /* Modal de notificación */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .modal.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 400px;
+            width: 90%;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .modal-content i {
+            font-size: 3rem;
+            color: #10b981;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-content button {
+            margin-top: 1.5rem;
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .profile-panel {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <i class="fas fa-compass"></i> Tu Guía Digital
+        </div>
+        <div class="user-info">
+            <span class="user-name" id="userNameDisplay">Cargando...</span>
+            <button class="btn-logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Panel lateral: Perfil / Hoja de vida -->
+        <aside class="profile-panel">
+            <h2><i class="fas fa-user-circle"></i> Mi Perfil Profesional</h2>
+            <div class="avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="profile-field">
+                <label>Nombre completo</label>
+                <input type="text" id="fullName" placeholder="Ej: John Doe">
+            </div>
+            <div class="profile-field">
+                <label>Teléfono</label>
+                <input type="tel" id="phone" placeholder="Número de contacto">
+            </div>
+            <div class="profile-field">
+                <label>Experiencia laboral</label>
+                <textarea id="experience" placeholder="Describe tu experiencia, últimos empleos..."></textarea>
+            </div>
+            <div class="profile-field">
+                <label>Educación</label>
+                <textarea id="education" placeholder="Estudios, cursos, certificaciones..."></textarea>
+            </div>
+            <div class="profile-field">
+                <label>Habilidades (separadas por coma)</label>
+                <input type="text" id="skills" placeholder="Ej: HTML, CSS, JavaScript, Python">
+            </div>
+            <div class="profile-field">
+                <label>Hoja de vida (link o texto)</label>
+                <textarea id="cvLink" placeholder="Link a tu CV (Drive, Dropbox) o resumen de tu perfil..."></textarea>
+            </div>
+            <button class="btn-save-profile" id="saveProfileBtn"><i class="fas fa-save"></i> Guardar perfil</button>
+        </aside>
+
+        <!-- Listado de vacantes -->
+        <section class="vacantes-section">
+            <div class="vacantes-header">
+                <h2><i class="fas fa-briefcase"></i> Oportunidades laborales</h2>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Buscar por título, empresa...">
+                    <button id="searchBtn"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+            <div id="vacantesGrid" class="vacantes-grid">
+                <!-- Las vacantes se cargarán dinámicamente -->
+                <div style="text-align: center; grid-column: 1/-1;">Cargando vacantes...</div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal de notificación -->
+    <div class="modal" id="notificationModal">
+        <div class="modal-content">
+            <i class="fas fa-check-circle"></i>
+            <h3>¡Solicitud enviada!</h3>
+            <p id="modalMessage">Tu postulación ha sido recibida. La empresa evaluará tu perfil.</p>
+            <button id="closeModalBtn">Aceptar</button>
+        </div>
+    </div>
+
+    <script>
+        // ========== 1. VERIFICAR SESIÓN ==========
+        const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual'));
+        if (!usuarioActual) {
+            alert('Debes iniciar sesión para acceder a las vacantes.');
+            window.location.href = 'auth.html';
+        }
+
+        // Mostrar nombre del usuario
+        document.getElementById('userNameDisplay').textContent = usuarioActual.nombre || usuarioActual.email;
+
+        // ========== 2. BASE DE DATOS DE VACANTES (quemadas) ==========
+        const vacantesData = [
+            {
+                id: 1,
+                titulo: "Desarrollador Frontend React",
+                empresa: "JOQU Comunicaciones",
+                ubicacion: "Remoto",
+                tipo: "Tiempo completo",
+                salario: "$3.5M - $5M",
+                descripcion: "Buscamos desarrollador con experiencia en React, HTML5, CSS3 y JavaScript. Conocimiento en consumo de APIs.",
+                requisitos: "2+ años de experiencia, portfolio, trabajo en equipo."
+            },
+            {
+                id: 2,
+                titulo: "Especialista en Marketing Digital",
+                empresa: "Agencia Creativa XYZ",
+                ubicacion: "Bogotá (Híbrido)",
+                tipo: "Tiempo completo",
+                salario: "$2.8M - $4M",
+                descripcion: "Gestión de campañas en Google Ads, Meta Ads, SEO/SEM, análisis de métricas.",
+                requisitos: "Experiencia comprobada en herramientas de analítica."
+            },
+            {
+                id: 3,
+                titulo: "Diseñador UX/UI Senior",
+                empresa: "Innovatech",
+                ubicacion: "Remoto",
+                tipo: "Freelance",
+                salario: "Por proyecto",
+                descripcion: "Diseño de interfaces para aplicaciones web y móviles. Prototipado en Figma.",
+                requisitos: "Portafolio, conocimiento de accesibilidad."
+            },
+            {
+                id: 4,
+                titulo: "Desarrollador Backend Node.js",
+                empresa: "TechSolutions",
+                ubicacion: "Medellín (Presencial)",
+                tipo: "Tiempo completo",
+                salario: "$4M - $6M",
+                descripcion: "Desarrollo de APIs REST, manejo de bases de datos SQL/NoSQL, despliegue en cloud.",
+                requisitos: "Experiencia con Express, MongoDB, Git."
+            },
+            {
+                id: 5,
+                titulo: "Asistente de Recursos Humanos",
+                empresa: "Corporación Saludable",
+                ubicacion: "Cali",
+                tipo: "Medio tiempo",
+                salario: "$1.5M",
+                descripcion: "Apoyo en procesos de selección, gestión de nómina, inducción de personal.",
+                requisitos: "Estudiante o recién egresado de psicología o administración."
+            },
+            {
+                id: 6,
+                titulo: "Community Manager",
+                empresa: "Social Media Pro",
+                ubicacion: "Remoto",
+                tipo: "Tiempo completo",
+                salario: "$2M - $2.5M",
+                descripcion: "Creación de contenido, gestión de redes, atención al cliente, reportes.",
+                requisitos: "Experiencia con Meta Business Suite, Canva, creatividad."
+            }
+        ];
+
+        // Variable para almacenar las vacantes filtradas
+        let filteredVacantes = [...vacantesData];
+
+        // Obtener postulaciones guardadas del usuario (un array con IDs de vacantes postuladas)
+        let postulaciones = JSON.parse(localStorage.getItem(`postulaciones_${usuarioActual.id}`)) || [];
+
+        // Función para guardar postulaciones
+        function guardarPostulaciones() {
+            localStorage.setItem(`postulaciones_${usuarioActual.id}`, JSON.stringify(postulaciones));
+        }
+
+        // Función para renderizar vacantes
+        function renderVacantes() {
+            const grid = document.getElementById('vacantesGrid');
+            if (!filteredVacantes.length) {
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center;">No se encontraron vacantes con esos criterios.</div>';
+                return;
+            }
+            grid.innerHTML = filteredVacantes.map(vacante => {
+                const yaPostulo = postulaciones.includes(vacante.id);
+                return `
+                    <div class="vacante-card" data-id="${vacante.id}">
+                        <div class="vacante-titulo">${vacante.titulo}</div>
+                        <div class="vacante-empresa"><i class="fas fa-building"></i> ${vacante.empresa}</div>
+                        <div class="vacante-detalles">
+                            <span><i class="fas fa-map-marker-alt"></i> ${vacante.ubicacion}</span>
+                            <span><i class="fas fa-clock"></i> ${vacante.tipo}</span>
+                            <span><i class="fas fa-dollar-sign"></i> ${vacante.salario}</span>
+                        </div>
+                        <div class="vacante-descripcion">${vacante.descripcion.substring(0, 100)}${vacante.descripcion.length > 100 ? '...' : ''}</div>
+                        <button class="btn-postular ${yaPostulo ? 'postulado' : ''}" data-id="${vacante.id}" ${yaPostulo ? 'disabled' : ''}>
+                            ${yaPostulo ? '✔️ Postulado' : '📩 Postularme'}
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            // Agregar eventos a los botones de postular
+            document.querySelectorAll('.btn-postular:not([disabled])').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const vacanteId = parseInt(btn.dataset.id);
+                    postularAVacante(vacanteId);
+                });
+            });
+        }
+
+        // Función para postular
+        function postularAVacante(vacanteId) {
+            // Verificar que el usuario tenga completo su perfil (hoja de vida)
+            const perfil = JSON.parse(localStorage.getItem(`perfil_${usuarioActual.id}`));
+            if (!perfil || !perfil.fullName || !perfil.experience || !perfil.skills) {
+                alert('⚠️ Antes de postularte, completa tu perfil profesional (nombre, experiencia, habilidades).');
+                return;
+            }
+
+            const vacante = vacantesData.find(v => v.id === vacanteId);
+            if (!vacante) return;
+
+            // Registrar postulación
+            if (!postulaciones.includes(vacanteId)) {
+                postulaciones.push(vacanteId);
+                guardarPostulaciones();
+
+                // Mostrar modal de notificación
+                const modalMsg = `Tu solicitud para "${vacante.titulo}" en ${vacante.empresa} ha sido enviada. La empresa revisará tu perfil y se pondrá en contacto.`;
+                document.getElementById('modalMessage').innerHTML = modalMsg;
+                document.getElementById('notificationModal').classList.add('active');
+
+                // Volver a renderizar para deshabilitar botón
+                renderVacantes();
+            }
+        }
+
+        // ========== 3. PERFIL / HOJA DE VIDA ==========
+        // Cargar perfil guardado (si existe)
+        function cargarPerfil() {
+            const perfilGuardado = localStorage.getItem(`perfil_${usuarioActual.id}`);
+            if (perfilGuardado) {
+                const perfil = JSON.parse(perfilGuardado);
+                document.getElementById('fullName').value = perfil.fullName || '';
+                document.getElementById('phone').value = perfil.phone || '';
+                document.getElementById('experience').value = perfil.experience || '';
+                document.getElementById('education').value = perfil.education || '';
+                document.getElementById('skills').value = perfil.skills || '';
+                document.getElementById('cvLink').value = perfil.cvLink || '';
+            } else {
+                // Prellenar con datos del usuario si tiene nombre
+                if (usuarioActual.nombre) {
+                    document.getElementById('fullName').value = usuarioActual.nombre;
+                }
+            }
+        }
+
+        // Guardar perfil
+        document.getElementById('saveProfileBtn').addEventListener('click', () => {
+            const perfil = {
+                fullName: document.getElementById('fullName').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                experience: document.getElementById('experience').value.trim(),
+                education: document.getElementById('education').value.trim(),
+                skills: document.getElementById('skills').value.trim(),
+                cvLink: document.getElementById('cvLink').value.trim(),
+                email: usuarioActual.email,
+                tipo: usuarioActual.tipo
+            };
+            if (!perfil.fullName) {
+                alert('El nombre completo es obligatorio.');
+                return;
+            }
+            localStorage.setItem(`perfil_${usuarioActual.id}`, JSON.stringify(perfil));
+            alert('✅ Perfil guardado correctamente. Ahora puedes postularte a las vacantes.');
+        });
+
+        // ========== 4. BÚSQUEDA DE VACANTES ==========
+        function filtrarVacantes() {
+            const term = document.getElementById('searchInput').value.toLowerCase();
+            filteredVacantes = vacantesData.filter(v => 
+                v.titulo.toLowerCase().includes(term) ||
+                v.empresa.toLowerCase().includes(term) ||
+                v.ubicacion.toLowerCase().includes(term) ||
+                v.descripcion.toLowerCase().includes(term)
+            );
+            renderVacantes();
+        }
+
+        document.getElementById('searchBtn').addEventListener('click', filtrarVacantes);
+        document.getElementById('searchInput').addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') filtrarVacantes();
+        });
+
+        // ========== 5. CERRAR MODAL ==========
+        document.getElementById('closeModalBtn').addEventListener('click', () => {
+            document.getElementById('notificationModal').classList.remove('active');
+        });
+
+        // ========== 6. CERRAR SESIÓN ==========
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('usuarioActual');
+            window.location.href = 'auth.html';
+        });
+
+        // ========== INICIALIZAR TODO ==========
+        function init() {
+            cargarPerfil();
+            renderVacantes();
+        }
+        init();
+    </script>
+</body>
+</html>
