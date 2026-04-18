@@ -1324,5 +1324,302 @@
       input.style.opacity = '0';
     });
   </script>
+  <script>
+    // ============================================
+    // 1. USUARIOS QUEMADOS (HARDCODEADOS)
+    // ============================================
+    const usuariosIniciales = [
+        { id: 1, nombre: "Administrador", email: "admin@example.com", password: "admin123", tipo: "admin" },
+        { id: 2, nombre: "Empresa Demo", email: "empresa@example.com", password: "empresa123", tipo: "empresa" },
+        { id: 3, nombre: "Candidato Demo", email: "candidato@example.com", password: "candidato123", tipo: "candidato" }
+    ];
+
+    // Cargar usuarios quemados si no existen en localStorage
+    function cargarUsuariosIniciales() {
+        if (!localStorage.getItem('usuarios')) {
+            localStorage.setItem('usuarios', JSON.stringify(usuariosIniciales));
+        }
+    }
+
+    // ===== CONFIGURACIÓN INICIAL =====
+    document.addEventListener('DOMContentLoaded', function() {
+        cargarUsuariosIniciales();  // Asegurar que los usuarios estén disponibles
+
+        updateTabIndicator('login');
+
+        const savedEmail = localStorage.getItem('user_email');
+        const savedPassword = localStorage.getItem('user_password');
+        const rememberMe = localStorage.getItem('remember_me');
+
+        if (rememberMe === 'true' && savedEmail && savedPassword) {
+            document.getElementById('loginEmail').value = savedEmail;
+            document.getElementById('loginPassword').value = savedPassword;
+            document.getElementById('rememberMe').checked = true;
+        }
+    });
+
+    // ===== GESTIÓN DE TABS (sin cambios) =====
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabIndicator = document.getElementById('tabIndicator');
+    const forms = document.querySelectorAll('.auth-form');
+    const recoveryTab = document.querySelector('.tab-btn[data-tab="recovery"]');
+
+    function updateTabIndicator(tab) {
+        const activeTab = document.querySelector(`.tab-btn[data-tab="${tab}"]`);
+        if (!activeTab) return;
+        const tabWidth = activeTab.offsetWidth;
+        const tabLeft = activeTab.offsetLeft;
+        tabIndicator.style.width = `${tabWidth}px`;
+        tabIndicator.style.left = `${tabLeft}px`;
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        activeTab.classList.add('active');
+        forms.forEach(form => form.classList.remove('active'));
+        document.getElementById(`${tab}Form`).classList.add('active');
+    }
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            updateTabIndicator(this.dataset.tab);
+        });
+    });
+
+    document.getElementById('showRegister').addEventListener('click', (e) => {
+        e.preventDefault();
+        updateTabIndicator('register');
+    });
+    document.getElementById('showLogin').addEventListener('click', (e) => {
+        e.preventDefault();
+        updateTabIndicator('login');
+    });
+    document.getElementById('showRecovery').addEventListener('click', (e) => {
+        e.preventDefault();
+        recoveryTab.style.display = 'flex';
+        updateTabIndicator('recovery');
+    });
+    document.getElementById('backToLogin').addEventListener('click', (e) => {
+        e.preventDefault();
+        recoveryTab.style.display = 'none';
+        updateTabIndicator('login');
+    });
+
+    // ===== TOGGLE VISIBILIDAD DE CONTRASEÑAS =====
+    function togglePasswordVisibility(inputId, button) {
+        const input = document.getElementById(inputId);
+        const icon = button.querySelector('i');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+    document.getElementById('toggleLoginPassword').addEventListener('click', function() {
+        togglePasswordVisibility('loginPassword', this);
+    });
+    document.getElementById('toggleRegisterPassword').addEventListener('click', function() {
+        togglePasswordVisibility('registerPassword', this);
+    });
+    document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+        togglePasswordVisibility('confirmPassword', this);
+    });
+
+    // ===== FUNCIONES COMUNES =====
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    function showError(inputId, message) {
+        const input = document.getElementById(inputId);
+        const inputGroup = input.parentElement;
+        const existingError = inputGroup.querySelector('.error-message');
+        if (existingError) existingError.remove();
+        input.classList.add('error');
+        const errorElement = document.createElement('div');
+        errorElement.className = 'error-message';
+        errorElement.style.cssText = 'color: #ef4444; font-size: 0.85rem; margin-top: 8px;';
+        errorElement.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+        inputGroup.appendChild(errorElement);
+        setTimeout(() => {
+            input.classList.remove('error');
+            if (errorElement.parentElement === inputGroup) errorElement.remove();
+        }, 5000);
+    }
+
+    function showSuccessModal(title, message) {
+        document.getElementById('modalTitle').textContent = title;
+        document.getElementById('modalMessage').textContent = message;
+        document.getElementById('successModal').classList.add('active');
+    }
+
+    document.getElementById('closeModal').addEventListener('click', () => {
+        document.getElementById('successModal').classList.remove('active');
+    });
+
+    // ============================================
+    // 2. LOGIN REAL (busca en localStorage)
+    // ============================================
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        const rememberMe = document.getElementById('rememberMe').checked;
+        const submitBtn = document.getElementById('loginSubmit');
+
+        if (!validateEmail(email)) {
+            showError('loginEmail', 'Email inválido');
+            return;
+        }
+        if (password.length < 6) {
+            showError('loginPassword', 'Mínimo 6 caracteres');
+            return;
+        }
+
+        submitBtn.classList.add('loading');
+
+        // Obtener usuarios del localStorage
+        const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+        const usuario = usuarios.find(u => u.email === email && u.password === password);
+
+        // Simular pequeña demora
+        await new Promise(resolve => setTimeout(resolve, 800));
+
+        if (usuario) {
+            // Guardar usuario actual en sesión
+            localStorage.setItem('usuarioActual', JSON.stringify(usuario));
+
+            if (rememberMe) {
+                localStorage.setItem('user_email', email);
+                localStorage.setItem('user_password', password);
+                localStorage.setItem('remember_me', 'true');
+            } else {
+                localStorage.removeItem('user_email');
+                localStorage.removeItem('user_password');
+                localStorage.removeItem('remember_me');
+            }
+
+            showSuccessModal('¡Bienvenido!', `Inicio de sesión exitoso. Redirigiendo...`);
+            setTimeout(() => {
+                window.location.href = 'vacantes.html';   // 🔁 Redirige a vacantes
+            }, 1500);
+        } else {
+            alert('Correo o contraseña incorrectos. Usa: candidato@example.com / candidato123');
+            submitBtn.classList.remove('loading');
+        }
+        submitBtn.classList.remove('loading');
+    });
+
+    // ============================================
+    // 3. REGISTRO REAL (agrega a localStorage)
+    // ============================================
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName = document.getElementById('lastName').value.trim();
+        const email = document.getElementById('registerEmail').value.trim();
+        const password = document.getElementById('registerPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const userType = document.getElementById('userType').value;
+        const acceptTerms = document.getElementById('acceptTerms').checked;
+        const submitBtn = document.getElementById('registerSubmit');
+
+        if (!firstName || !lastName) {
+            showError('firstName', 'Nombre y apellido requeridos');
+            return;
+        }
+        if (!validateEmail(email)) {
+            showError('registerEmail', 'Email inválido');
+            return;
+        }
+        if (password.length < 8) {
+            showError('registerPassword', 'Mínimo 8 caracteres');
+            return;
+        }
+        if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password)) {
+            showError('registerPassword', 'Debe tener mayúscula, minúscula y número');
+            return;
+        }
+        if (password !== confirmPassword) {
+            showError('confirmPassword', 'Las contraseñas no coinciden');
+            return;
+        }
+        if (!userType) {
+            showError('userType', 'Selecciona un tipo');
+            return;
+        }
+        if (!acceptTerms) {
+            alert('Debes aceptar los términos');
+            return;
+        }
+
+        submitBtn.classList.add('loading');
+
+        const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+        if (usuarios.some(u => u.email === email)) {
+            alert('Este email ya está registrado. Usa otro.');
+            submitBtn.classList.remove('loading');
+            return;
+        }
+
+        const nuevoUsuario = {
+            id: Date.now(),
+            nombre: `${firstName} ${lastName}`,
+            email: email,
+            password: password,
+            tipo: userType
+        };
+        usuarios.push(nuevoUsuario);
+        localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+        // Opcional: auto-login después del registro
+        localStorage.setItem('usuarioActual', JSON.stringify(nuevoUsuario));
+        localStorage.setItem('user_email', email);
+
+        showSuccessModal('¡Registro exitoso!', 'Tu cuenta ha sido creada. Redirigiendo...');
+        setTimeout(() => {
+            window.location.href = 'vacantes.html';
+        }, 2000);
+
+        submitBtn.classList.remove('loading');
+    });
+
+    // ===== RECUPERACIÓN (simulada) =====
+    document.getElementById('recoveryForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const email = document.getElementById('recoveryEmail').value.trim();
+        const submitBtn = document.getElementById('recoverySubmit');
+
+        if (!validateEmail(email)) {
+            showError('recoveryEmail', 'Email inválido');
+            return;
+        }
+        submitBtn.classList.add('loading');
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        showSuccessModal('Correo enviado', `Se enviaron instrucciones a ${email} (simulado).`);
+        submitBtn.classList.remove('loading');
+        setTimeout(() => {
+            recoveryTab.style.display = 'none';
+            updateTabIndicator('login');
+        }, 2000);
+    });
+
+    // ===== LOGIN SOCIAL (demo) =====
+    document.querySelectorAll('.social-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            alert('Login social - Demo. Integra con backend real.');
+        });
+    });
+
+    // ===== ANIMACIÓN DE INPUTS =====
+    document.querySelectorAll('input, select').forEach((input, idx) => {
+        input.style.animation = `fadeIn 0.5s ease forwards ${idx * 0.1}s`;
+        input.style.opacity = '0';
+    });
+</script>
 </body>
 </html>
