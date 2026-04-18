@@ -1,0 +1,22 @@
+<!-- dashboard.html -->
+<!DOCTYPE html>
+<html>
+<head><title>Dashboard</title></head>
+<body>
+<h1>Bienvenido</h1>
+<div id="userInfo"></div>
+<script>
+    const user = JSON.parse(localStorage.getItem('usuarioActual'));
+    if (user) {
+        document.getElementById('userInfo').innerHTML = `
+            <p>Nombre: ${user.nombre}</p>
+            <p>Email: ${user.email}</p>
+            <p>Tipo: ${user.tipo}</p>
+            <button onclick="localStorage.removeItem('usuarioActual'); location.href='auth.html'">Cerrar sesión</button>
+        `;
+    } else {
+        location.href = 'auth.html';
+    }
+</script>
+</body>
+</html>
